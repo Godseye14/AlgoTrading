@@ -6,10 +6,26 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def get_data(symbol,start,end):
+        """
+        Fetch data from yfinance
+        Params - 
+        symbol : Script name in yahoo finance
+        start : start date
+        end : end date
+        Returns -
+        dataframe
+        """
         df = yf.download(symbol,start,end)
         return df
 
 def get_close(df):
+        """
+        This function is used to get the close from dataframe and rename the column to Price
+        Param -
+        df : dataframe
+        Returns -
+        dataframe
+        """
         close = df.Close.dropna().to_frame().copy()
         close.rename(columns={"Close":'Price'},inplace=True)
         print("Got Close values from df, Renaming it to Price...")
