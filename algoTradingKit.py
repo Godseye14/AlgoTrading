@@ -5,13 +5,6 @@ import yfinance as yf
 import time
 
 def get_data(symbol,start,end):
-        try:
-            df = yf.download(symbol,start,end,period='1d')
-            if len(df)!=0:
-                print("Data Downloaded...")
-                return df
-        except Exception as err:
-                print(err)
         """
         Fetch data from yfinance
         Params - 
@@ -21,6 +14,13 @@ def get_data(symbol,start,end):
         Returns -
         dataframe
         """
+        try:
+            df = yf.download(symbol,start,end,period='1d')
+            if len(df)!=0:
+                print("Data Downloaded...")
+                return df
+        except Exception as err:
+                print(err)
         df = yf.download(symbol,start,end)
         return df
 
