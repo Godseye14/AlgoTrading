@@ -2,17 +2,21 @@ import numpy as np
 import pandas as pd
 pd.options.display.float_format = '{:.4f}'.format
 import yfinance as yf
-import matplotlib.pyplot as plt
-import seaborn as sns
+import time
 
 def get_data(symbol,start,end):
-        df = yf.download(symbol,start,end)
-        return df
+        try:
+            df = yf.download(symbol,start,end,period='1d')
+            if len(df)!=0:
+                print("Data Downloaded...")
+                return df
+        except Exception as err:
+                print(err)
 
 def get_close(df):
         close = df.Close.dropna().to_frame().copy()
+        print("Got 'Close' values from DataFrame, Renaming it to Price...")
         close.rename(columns={"Close":'Price'},inplace=True)
-        print("Got Close values from df, Renaming it to Price...")
         return close
 
 def get_returns(close):
@@ -22,8 +26,9 @@ def get_returns(close):
         return close
 
 def save_to_csv(symbol,start,end,df):
-        df.to_csv(symbol+'--'+start+'--'+end+'.csv')
-        print("File saved as :",symbol+'--'+start+'--'+end+'.csv')
+        file_name =symbol+'--'+start+'--'+end+'.csv'
+        df.to_csv(file_name)
+        print("File saved as :",file_name)
 
 def get_df(path):
         """

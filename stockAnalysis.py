@@ -7,18 +7,16 @@ import yfinance as yf
 
 from algoTradingKit import *
 
-# symbol = input("Enter symbol : ")
-# start = input("Start Date : ")
-# end = input("End Date : ")
+symbol = input("Enter symbol : ")
+start = input("Start Date : ")
+end = input("End Date : ")
 
-# df = get_data(symbol,start,end)
-
-# close = get_close(df)
-
-# close = get_returns(close)
-
-# save_to_csv(symbol,start,end,close)
+df = get_data(symbol,start,end)
+if len(df)!=0:
+    close = get_close(df)
+    close = get_returns(close)
+    save_to_csv(symbol,start,end,close)
 
 df = load_csv()
-
-cagr = get_cagr(df)
+if len(df)!=0:
+    cagr = get_cagr(df)
