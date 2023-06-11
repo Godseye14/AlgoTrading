@@ -1,8 +1,6 @@
-import numpy as np
 import pandas as pd
 pd.options.display.float_format = '{:.4f}'.format
 import yfinance as yf
-import time
 
 def get_data(symbol,start,end):
         try:
