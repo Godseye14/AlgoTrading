@@ -1,18 +1,20 @@
-import numpy as np
 import pandas as pd
 pd.options.display.float_format = '{:.4f}'.format
 import yfinance as yf
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 def get_data(symbol,start,end):
-        df = yf.download(symbol,start,end)
-        return df
+        try:
+            df = yf.download(symbol,start,end,period='1d')
+            if len(df)!=0:
+                print("Data Downloaded...")
+                return df
+        except Exception as err:
+                print(err)
 
 def get_close(df):
         close = df.Close.dropna().to_frame().copy()
+        print("Got 'Close' values from DataFrame, Renaming it to Price...")
         close.rename(columns={"Close":'Price'},inplace=True)
-        print("Got Close values from df, Renaming it to Price...")
         return close
 
 def get_returns(close):
@@ -22,8 +24,11 @@ def get_returns(close):
         return close
 
 def save_to_csv(symbol,start,end,df):
-        df.to_csv(symbol+'--'+start+'--'+end+'.csv')
-        print("File saved as :",symbol+'--'+start+'--'+end+'.csv')
+        folder = 'data./'
+        file_name =symbol+'--'+start+'--'+end+'.csv'
+        folder_path=folder+file_name
+        df.to_csv(folder_path)
+        print("File saved as :",folder_path)
 
 def get_df(path):
         """
@@ -36,7 +41,7 @@ def load_csv():
         symbol = input("Enter symbol : ")
         start = input("Start Date : ")
         end = input("End Date : ")
-        path=symbol+'--'+start+'--'+end+'.csv'
+        path='data./'+symbol+'--'+start+'--'+end+'.csv'
         try:
                 df = pd.read_csv(path,index_col='Date',parse_dates=['Date'])
                 print('Loaded csv file...')
