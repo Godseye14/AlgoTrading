@@ -1,8 +1,18 @@
 import pandas as pd
 pd.options.display.float_format = '{:.4f}'.format
 import yfinance as yf
+import time
 
 def get_data(symbol,start,end):
+        """
+        Fetch data from yfinance
+        Params - 
+        symbol : Script name in yahoo finance
+        start : start date
+        end : end date
+        Returns -
+        dataframe
+        """
         try:
             df = yf.download(symbol,start,end,period='1d')
             if len(df)!=0:
@@ -10,8 +20,17 @@ def get_data(symbol,start,end):
                 return df
         except Exception as err:
                 print(err)
+        df = yf.download(symbol,start,end)
+        return df
 
 def get_close(df):
+        """
+        This function is used to get the close from dataframe and rename the column to Price
+        Param -
+        df : dataframe
+        Returns -
+        dataframe
+        """
         close = df.Close.dropna().to_frame().copy()
         print("Got 'Close' values from DataFrame, Renaming it to Price...")
         close.rename(columns={"Close":'Price'},inplace=True)
