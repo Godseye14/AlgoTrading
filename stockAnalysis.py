@@ -22,3 +22,5 @@ if len(df)!=0:
 df = load_csv()
 if len(df)!=0:
     cagr = get_cagr(df)
+    gm = get_geometic_mean(df)
+    

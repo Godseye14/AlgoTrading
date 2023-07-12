@@ -78,3 +78,15 @@ def get_cagr(df):
         print(f"CAGR for the selected script b/w {start} and {end} is : {cagr}")
         print(f"CAGR in percentage is : {cagr*100}")
         return cagr
+
+def get_geometic_mean(df):
+       """
+       This fn calculates geometric mean.
+       Takes in dataframe
+       Returns geometric mean
+       """
+       multiple = (1+df.Returns).prod()
+       num = df.Returns.count()
+       gm = multiple**(1/num)-1
+       print("Geometric Mean : ", gm)
+       return gm
