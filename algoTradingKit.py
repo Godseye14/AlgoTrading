@@ -60,11 +60,16 @@ def load_csv():
         symbol = input("Enter symbol : ")
         start = input("Start Date : ")
         end = input("End Date : ")
+        if len(symbol)==0 and len(start)==0 and len(end)==0:
+            print("User Input not provided correctly.. Taking Bajaj Finance as default script...")
+            symbol = "BAJFINANCE.NS"
+            start = "2003-05-26"
+            end = "2023-07-12"
         path='data/'+symbol+'--'+start+'--'+end+'.csv'
         try:
-                df = pd.read_csv(path,index_col='Date',parse_dates=['Date'])
-                print('Loaded csv file...')
-                return df
+            df = pd.read_csv(path,index_col='Date',parse_dates=['Date'])
+            print('Loaded csv file...')
+            return df
         except Exception as err:
                 print(err)
 
