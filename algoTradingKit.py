@@ -43,7 +43,7 @@ def get_returns(close):
         return close
 
 def save_to_csv(symbol,start,end,df):
-        folder = 'data./'
+        folder = 'data/'
         file_name =symbol+'--'+start+'--'+end+'.csv'
         folder_path=folder+file_name
         df.to_csv(folder_path)
@@ -60,7 +60,7 @@ def load_csv():
         symbol = input("Enter symbol : ")
         start = input("Start Date : ")
         end = input("End Date : ")
-        path='data./'+symbol+'--'+start+'--'+end+'.csv'
+        path='data/'+symbol+'--'+start+'--'+end+'.csv'
         try:
                 df = pd.read_csv(path,index_col='Date',parse_dates=['Date'])
                 print('Loaded csv file...')
