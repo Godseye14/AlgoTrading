@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 pd.options.display.float_format = '{:.4f}'.format
 import yfinance as yf
@@ -95,3 +96,17 @@ def get_geometic_mean(df):
        gm = multiple**(1/num)-1
        print("Geometric Mean : ", gm)
        return gm
+
+def get_log_return(df):
+       """
+       This fn calculates log returns of the selected script
+       """
+       log_return = np.log(df.Price/df.Price.shift())
+       return log_return
+
+def get_cagr_using_log(df):
+    trading_days_in_a_year = df.Returns.count()/((df.index[-1] - df.index[0]).days / 365.25)   
+    print("trading_days_in_a_year : ", trading_days_in_a_year)
+    cagr_log = np.exp(df.log_ret.mean()* trading_days_in_a_year)-1
+    print("CAGR log returns : ", cagr_log)
+    return cagr_log

@@ -23,4 +23,7 @@ df = load_csv()
 if len(df)!=0:
     cagr = get_cagr(df)
     gm = get_geometic_mean(df)
+    df['log_ret'] = get_log_return(df)
+    print(df)
+    get_cagr_using_log(df)
     
